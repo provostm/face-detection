@@ -1,12 +1,12 @@
 # face-landmarks-detector
 
-# requirements
+# Requirements
 - Python
 - dlib  (pip install dlib)
 - openCV (pip install opencv-python)
 - Download "shape_predictor_68_face_landmarks.dat"
 
-# description
+# Description
 Show face landmarks on live camera video.
 
 # How to execute
