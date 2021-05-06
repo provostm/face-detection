@@ -16,7 +16,9 @@ Show face landmarks on live camera video.
 
 # Screenshots
 - When a face or more is detected
-![face detected](https://user-images.githubusercontent.com/24222091/117327673-276fdc80-ae93-11eb-93a1-0133edaa3888.png)
+![face detected](https://user-images.githubusercontent.com/24222091/117327830-51290380-ae93-11eb-8752-16742be303c2.png)
+
 
 - When no face is detected
-![no face detected](https://user-images.githubusercontent.com/24222091/117327689-2c349080-ae93-11eb-88bb-9f0d9f84616b.png)
+![no face detected](https://user-images.githubusercontent.com/24222091/117327856-571ee480-ae93-11eb-9bf7-4077053e9e6c.png)
+
