@@ -1,4 +1,4 @@
-# face-landmarks-detector
+# Face Detection
 
 # Requirements
 - Python
