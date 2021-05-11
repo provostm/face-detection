@@ -7,12 +7,23 @@
 - Download "shape_predictor_68_face_landmarks.dat"
 
 # Description
-Show face landmarks on live video camera.
+The purpose of this project is to gather into one app different models regarding faces.
+- Face landmarks
+- Face detection (yolo face CPU and GPU)
+- Gender Age detection
+- Identity
 
 # How to execute
 - Modify the path where you store "shape_predictor_68_face_landmarks.dat" model.
 - Run main.py
 - Quit by pressing "Q"
+- Toggle landmarks by pressing "L"
+- Toggle Yolo face detection (CPU) by pressing "Y" 
+- Toggle Yolo face detection (GPU) by pressing "G"
+- Toggle Gender and Age detection by pressing "A"
+- Toggle Identity detection by pressing "I"
+
+Do not activate all at the same time or it will be very laggy.
 
 # Screenshots
 - When a face or more is detected
