@@ -33,3 +33,9 @@ Do not activate all at the same time or it will be very laggy.
 - When no face detected
 ![no face detected](https://user-images.githubusercontent.com/24222091/117327856-571ee480-ae93-11eb-9bf7-4077053e9e6c.png)
 
+# Show FPS
+This topic is tricky as there is no official OpenCV method to show FPS. 
+So I tried multiple techniques:
+- utils FPS Class (FPS available when you stop the program)
+- Calculation of time between 2 frames to deduct the FPS (possible to show it in real time)
+- Use OpenCV get(cv2.CAP_PROP_FPS) (not efficient)
