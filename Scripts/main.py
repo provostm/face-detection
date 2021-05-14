@@ -1,8 +1,11 @@
 import cv2
 import dlib
 from utils_yolo_face import *
+import time
 
 cap = cv2.VideoCapture(0)
+fps = cap.get(cv2.CAP_PROP_FPS)
+print("Frames per second using cap.get(cv2.CAP_PROP_FPS) : {0}".format(fps))
 
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('D:/Projets python/Face-Morphing/code/utils/shape_predictor_68_face_landmarks.dat')
@@ -14,13 +17,33 @@ net = cv2.dnn.readNetFromDarknet(yolo_face_model, yolo_face_weights)
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 
-
 toggle_landmarks = True
-toggle_yolo_face = True
+toggle_yolo_face = False
+
+fps_instance = FPS().start()
+
+# Real time FPS: https://www.geeksforgeeks.org/python-displaying-real-time-fps-at-which-webcam-video-file-is-processed-using-opencv/
+# used to record the time when we processed last frame
+prev_frame_time = 0
+# used to record the time at which we processed current frame
+new_frame_time = 0
 
 while True:
     ret, frame = cap.read()
     IMG_HEIGHT, IMG_WIDTH, _ = frame.shape
+
+    # time when we finish processing for this frame
+    new_frame_time = time.time()
+
+    # Calculating the fps
+    # fps will be number of frame processed in given time frame
+    # since their will be most of time error of 0.001 second
+    # we will be subtracting it to get more accurate result
+    fps = round(1 / (new_frame_time - prev_frame_time), 2)
+    prev_frame_time = new_frame_time
+
+    # Putting the FPS count on the frame
+    cv2.putText(frame, str(fps), (IMG_WIDTH - 80, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (100, 255, 0), 1, cv2.LINE_AA)
 
     if toggle_landmarks:
         dets = detector(frame, 1)
@@ -70,11 +93,15 @@ while True:
                         cv2.FONT_HERSHEY_SIMPLEX, 0.6, COLOR_GREEN, 2)
         frame = cv2.putText(frame, "Yolo face activated", (IMG_WIDTH - 127, IMG_HEIGHT - 40),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 0), 2, cv2.LINE_AA)
-
+    fps_instance.update()
     cv2.imshow("webcam", frame)
 
-    if cv2.waitKey(2) & 0xFF == ord('q'):
+    if (cv2.waitKey(2) & 0xFF == ord('q')) or cv2.waitKey(2) == 27:
         break
+fps_instance.stop()
+print("[INFO] elasped time: {:.2f}".format(fps_instance.elapsed()))
+print("[INFO] approx. FPS: {:.2f}".format(fps_instance.fps()))
+
 cap.release()
 cv2.destroyAllWindows()
 

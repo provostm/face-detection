@@ -2,7 +2,7 @@ from threading import Thread, Lock
 import cv2
 import dlib
 from utils_yolo_face import *
-
+import time
 
 def face_detection(frame, detector, predictor, net):
     global toggle_landmarks
@@ -186,19 +186,39 @@ if __name__ == "__main__":
 
     vs = WebcamVideoStream().start()
     # vs_button = ToggleButtonStream().start()
-    fps = FPS().start()
+    fps_instance = FPS().start()
+
+    # Real time FPS: https://www.geeksforgeeks.org/python-displaying-real-time-fps-at-which-webcam-video-file-is-processed-using-opencv/
+    # used to record the time when we processed last frame
+    prev_frame_time = 0
+    # used to record the time at which we processed current frame
+    new_frame_time = 0
 
     while True:
         frame = vs.read()
+        IMG_HEIGHT, IMG_WIDTH, _ = frame.shape
+        # time when we finish processing for this frame
+        new_frame_time = time.time()
+
+        # Calculating the fps
+        # fps will be number of frame processed in given time frame
+        # since their will be most of time error of 0.001 second
+        # we will be subtracting it to get more accurate result
+        fps = round(1 / (new_frame_time - prev_frame_time), 2)
+        prev_frame_time = new_frame_time
+
+        # Putting the FPS count on the frame
+        cv2.putText(frame, str(fps), (IMG_WIDTH - 90, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (100, 255, 0), 1, cv2.LINE_AA)
+
         toggle_buttons_function()
-        fps.update()
+        fps_instance.update()
         cv2.imshow('webcam', frame)
         if cv2.waitKey(1) == 27 or exit_bool:
             break
 
-    fps.stop()
-    print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
-    print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+    fps_instance.stop()
+    print("[INFO] elasped time: {:.2f}".format(fps_instance.elapsed()))
+    print("[INFO] approx. FPS: {:.2f}".format(fps_instance.fps()))
     vs.stop()
     # vs_button.stop()
     # t1.join()
