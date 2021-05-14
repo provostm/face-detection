@@ -15,13 +15,15 @@ The purpose of this project is to gather into one app different models regarding
 
 # How to execute
 - Modify the path where you store "shape_predictor_68_face_landmarks.dat" model.
-- Run main.py for a 1 thread script or run multithread.py for a multithread script (better FPS)
-- Quit by pressing "Q"
+- Run `python main.py` for straight forward script with one For loop or run `python multithread.py` for a multithreaded script (better FPS)
+- Quit by pressing "Q" or "Esc"
 - Toggle landmarks by pressing "L"
 - Toggle Yolo face detection (CPU) by pressing "Y" 
 - Toggle Yolo face detection (GPU) by pressing "G"
 - Toggle Gender and Age detection by pressing "A"
 - Toggle Identity detection by pressing "I"
+
+*Note that you need to press a certain amount of time on the key as the script has to go through the rest of the script before going back into the cv2.waitKey part. I need to make a dedicated thread for that but it seems not possible to have interactions outside of the main thread.*
 
 Do not activate all at the same time or it will be very laggy.
 
