@@ -10,8 +10,8 @@
 The purpose of this project is to gather into one app different models regarding faces.
 - Face landmarks
 - Face detection (yolo face CPU and GPU)
-- Gender Age detection
-- Identity
+- Gender Age detection (not implemented yet)
+- Identity (not implemented yet)
 
 # How to execute
 - Modify the path where you store "shape_predictor_68_face_landmarks.dat" model.
