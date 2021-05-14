@@ -15,7 +15,7 @@ The purpose of this project is to gather into one app different models regarding
 
 # How to execute
 - Modify the path where you store "shape_predictor_68_face_landmarks.dat" model.
-- Run main.py
+- Run main.py for a 1 thread script or run multithread.py for a multithread script (better FPS)
 - Quit by pressing "Q"
 - Toggle landmarks by pressing "L"
 - Toggle Yolo face detection (CPU) by pressing "Y" 
